@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "apprun.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind": "npx @tailwindcss/cli -i ./src/input.css -o ./views/output.css --watch",
+    "server": "nodemon .\\apprun.js",
+    "dev": "npm-run-all --parallel tailwind server"
   },
   "keywords": [],
   "author": "",
@@ -16,9 +19,13 @@
     "bcryptjs": "^2.4.3",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "express-session": "^1.18.1",
     "mongoose": "^8.9.5",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.10.0",
     "tailwindcss": "^4.0.2"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }

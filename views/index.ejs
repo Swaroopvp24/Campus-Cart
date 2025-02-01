@@ -7,6 +7,7 @@
   <title>Campus Cart</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./output.css">
   <style>
     /* Background: professional gradient */
     body {
@@ -17,7 +18,8 @@
     #navbarMenu {
       z-index: 9999;
       position: absolute;
-      top: 80px; /* Adjust based on the height of your header */
+      top: 80px;
+      /* Adjust based on the height of your header */
       left: 0;
       width: 100%;
     }
@@ -64,7 +66,15 @@
       filter: brightness(0.9);
       transition: all 0.2s ease-in-out;
     }
-    
+
+    .container a:hover {
+      filter: none;
+    }
+
+    .container a {
+      text-decoration: none;
+    }
+
     /* Enhance header with a subtle shadow and border color */
     header {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -74,14 +84,14 @@
 </head>
 
 <body>
-  <header class="text-gray-600 body-font fixed w-full bg-white">
+  <header class="text-gray-600 body-font fixed w-full bg-white" style="top: 0;">
     <div class="container mx-auto flex flex-wrap p-5 flex-row items-center justify-between">
 
       <!-- Logo (Icon + Title) -->
       <a id="logo-title" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-        <svg id="logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
-          stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+        <svg id="logo-icon" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+          viewBox="0 0 24 24">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
         </svg>
         <span class="ml-3 text-xl hidden md:inline">Campus Cart</span>
@@ -110,7 +120,7 @@
       <!-- Navigation Links (Desktop) -->
       <div class="hidden lg:flex space-x-4 items-center">
         <!-- Sell Button -->
-        <button
+        <button id="sellbutton" action="/sellitem"
           class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base">
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -132,9 +142,8 @@
     </div>
 
     <!-- Collapsible Menu (Mobile) -->
-    <div id="navbarMenu"
-      class="lg:hidden hidden flex-col items-center w-full mt-4 bg-white border-t border-gray-200">
-      <button
+    <div id="navbarMenu" class="lg:hidden hidden flex-col items-center w-full mt-4 bg-white border-t border-gray-200">
+      <button id="sellbutton" action="/sellitem"
         class="w-full text-center bg-gray-100 border-0 py-2 px-4 focus:outline-none hover:bg-gray-200 rounded text-base">
         Sell
       </button>
@@ -151,95 +160,87 @@
   </header>
 
   <section class="text-gray-600 body-font">
-    <div class="container px-5 py-24 mx-auto">
-      <div class="text-center mb-20">
-        <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4" style="margin-top: 80px;">Most recent items</h1>
-        <div class="flex mt-6 justify-center">
-          <div class="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
-        </div>
-      </div>
-      <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
-        <!-- Item 1 -->
-        <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
-          <div class="imgclass w-20 h-20 inline-flex items-center justify-center bg-indigo-100 mb-5 flex-shrink-0">
-            <img src="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="w-full h-full object-cover" />
-          </div>
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Item Name: Shooting Stars</h2>
-            <p class="leading-relaxed text-base">
-              Item Description: Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine, ramps microdosing banh mi pug VHS try-hard. <br>
-              By: Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, voluptates.
-            </p>
-            <a class="mt-3 text-indigo-500 inline-flex items-center" href="#">Learn More
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
+    <div class="container mx-auto mt-10">
+      <h1 class="text-3xl font-bold text-center">Campus Cart</h1>
 
-        <!-- Item 2 -->
-        <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
-          <div class="imgclass w-20 h-20 inline-flex items-center justify-center bg-indigo-100 mb-5 flex-shrink-0">
-            <img src="https://via.placeholder.com/80" alt="Item 2" class="w-full h-full object-cover" />
-          </div>
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Item Name: The Catalyzer</h2>
-            <p class="leading-relaxed text-base">
-              Item Description: Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine, ramps microdosing banh mi pug VHS try-hard. <br>
-              By: Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, voluptates.
-            </p>
-            <a class="mt-3 text-indigo-500 inline-flex items-center" href="#">Learn More
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-[2.5rem]" style="margin-top: 8rem;">
+        <% items.forEach(item=> { %>
+          <div class="bg-white p-4 rounded-lg shadow-md" style="cursor: pointer;">
+            <a href="#">
+              <%= console.log(item.item_photo) %>
+                <!-- <%= JSON.stringify(item) %> -->
+                <img src="/uploads/<%= item.item_photo.split('\\').pop() %>" alt="<%= item.item_name %>"
+                  class="w-full h-40 object-cover rounded-md">
+                <h2 class="text-xl font-semibold mt-2">
+                  <%= item.item_name %>
+                </h2>
+                <p class="text-gray-700">
+                  <%= item.item_desc %>
+                </p>
+                <p class="text-green-600 font-bold">₹<%= item.item_price %>
+                </p>
+                <p class="text-gray-500">Category: <%= item.item_category %>
+                </p>
+                <p class="text-sm text-gray-400">Posted by: <%= item.postedby ? item.postedby.username : "Unknown" %>
+                </p>
             </a>
           </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
-          <div class="imgclass w-20 h-20 inline-flex items-center justify-center bg-indigo-100 mb-5 flex-shrink-0">
-            <img src="https://via.placeholder.com/80" alt="Item 3" class="w-full h-full object-cover" />
-          </div>
-          <div class="flex-grow">
-            <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Item Name: Neptune</h2>
-            <p class="leading-relaxed text-base">
-              Item Description: Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine, ramps microdosing banh mi pug VHS try-hard. <br>
-              By: Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate, voluptates.
-            </p>
-            <a class="mt-3 text-indigo-500 inline-flex items-center" href="#">Learn More
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
+          <% }) %>
       </div>
-      <button
-        class="flex mx-auto mt-6 bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">More</button>
     </div>
+
   </section>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Toggle the menu on mobile
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    const navbarMenu = document.getElementById('navbarMenu');
+    document.addEventListener("DOMContentLoaded", function () {
+      // Toggle the menu on mobile
+      const hamburgerMenu = document.getElementById('hamburger-menu');
+      const navbarMenu = document.getElementById('navbarMenu');
 
-    hamburgerMenu.addEventListener('click', () => {
-      navbarMenu.classList.toggle('hidden');
-    });
+      hamburgerMenu.addEventListener('click', () => {
+        navbarMenu.classList.toggle('hidden');
+      });
 
-    // Toggle search bar visibility on mobile
-    const searchToggle = document.getElementById('search-toggle');
-    const searchBarContainer = document.getElementById('search-bar-container');
+      // Toggle search bar visibility on mobile
+      const searchToggle = document.getElementById('search-toggle');
+      const searchBarContainer = document.getElementById('search-bar-container');
 
-    searchToggle.addEventListener('click', () => {
-      searchBarContainer.classList.toggle('hidden');
+      searchToggle.addEventListener('click', () => {
+        searchBarContainer.classList.toggle('hidden');
+      });
+
+
+      document.querySelector("#sellbutton").addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default behavior if in a form
+
+        const sendreq = async () => {
+          await fetch("/sellitem", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json", // Ensure correct content type for JSON
+            },
+            body: JSON.stringify({ /* Add any data you need to send */ })
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Server error");
+              }
+              return response.json(); // Or response.json() if the response is JSON
+            })
+            .then((data) => {
+              // console.log(data); // Handle the response from the server
+              window.location.href = data.redirectUrl;
+            })
+            .catch((error) => {
+              console.error("Error:", error); // Log errors
+            });
+        };
+
+        sendreq(); // Call the function to send the request
+      });
     });
   </script>
 </body>

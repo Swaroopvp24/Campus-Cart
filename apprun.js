@@ -9,27 +9,37 @@ import { Usr } from "./models/usr.js";
 import { newuser } from "./addusr.js";
 import { checkuser } from "./login.js";
 import { checkuserem } from "./checkem.js";
+
+import { Item } from "./models/item.js";
 import path from 'path';
+
+import session from 'express-session';
+
 
 // import { setnewpass } from './setnewp.js';
 
+
+// Generate a random 256-bit secret key
+// const secretKey = crypto.randomBytes(32).toString('hex');
+// console.log(secretKey); 
 
 const app = express();
 const port = 3000;
 const upload = multer();
 
+app.use(session({
+  secret: "0830c301239e5e81519d3d4c9d4ab4af32e47c6f6f557313af1f5621deb19bd1",
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // In production, use secure: true with HTTPS
+}));
+
 app.set("view engine", "ejs");
 app.set("views", path.join(process.cwd(), "views")); // Ensure views folder is set correctly
 
-app.use(express.static("public")); // Serve static files like CSS/JS if needed
-// app.use(express.static("public"));
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views'));
+app.use(express.static("public")); 
+app.use("/uploads", express.static("public/uploads"));
+app.use(express.static('src'));
 
 
 await mongoose.connection.close();
@@ -59,25 +69,6 @@ app.post("/clicksignup", upload.none(), async (req, res) => {
 
 
 
-// app.post("/clicksignin", upload.none(), async (req, res) => {
-//   const { username, password } = req.body;
-//   if (!username || !password) {
-//     return res.status(400).send("Missing username or password"); // Send a 400 response if missing
-//   }
-
-//   const result = await checkuser(username, password);
-//   // res.send(result);
-//   if(result == "Login successful"){
-//     console.log("Login result:", result);
-//     // res.redirect("/index");
-//     // res.redirect("http://127.0.0.1:3000/index");
-//     res.writeHead(302, { Location: "/index" });
-// res.end();
-//   }else{
-//     res.send(result);
-//   }
-// });
-
 app.post("/clicksignin", upload.none(), async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -85,12 +76,21 @@ app.post("/clicksignin", upload.none(), async (req, res) => {
   }
 
   const result = await checkuser(username, password);
+  const us = await Usr.findOne({ username: username });
   if (result === "Login successful") {
+    // console.log(Usr._id);
+    console.log(us._id);
+    req.session.userId = us._id;
+    console.log(req.session.userId);
     res.json({ success: true, redirectUrl: "/index" }); // Send a redirect URL
   } else {
     res.json({ success: false, message: result }); // Send error message
   }
 });
+
+
+
+
 
 // Set up storage engine for Multer (files will be stored in /public/uploads)
 const storage = multer.diskStorage({
@@ -116,9 +116,112 @@ const fileFilter = (req, file, cb) => {
 // Initialize multer
 const uploadItemImage = multer({ storage, fileFilter });
 
-app.get("/index", (req, res) => {
-  res.render("index"); // This will render index.ejs from the views folder
+
+
+
+
+// app.post("/sellitem", upload.none(), async (req, res) => {
+  
+//   // console.log(req.body);
+//   // console.log(req.session)
+  
+//   console.log(req.session.userId);
+//   try {
+//     const userId = req.session.userId; // Get user ID from session
+//     console.log(userId);
+
+//     if (!userId) {
+//       return res.status(400).send("User not logged in");
+//     }
+
+//     // Continue with processing the sell item request
+//     res.json({ success: true, redirectUrl: "/dataupload.html" }); // Send a redirect URL
+//   }catch(e){return res.status(500).send(e);}
+// });
+app.post("/sellitem", async (req, res) => {
+  console.log("In /sellitem, session:", req.session);
+  const userId = req.session.userId; // Get user ID from session
+  if (!userId) {
+    return res.status(400).send("User not logged in");
+  }
+  console.log("User ID from session:", userId);
+  res.json({ success: true, redirectUrl: "/dataupload.html" });
 });
+
+app.get("/dataupload.html",async(req,res)=>{
+  console.log("In /sellitem, session:", req.session);
+  const userId = req.session.userId; // Get user ID from session
+  if (!userId) {
+    return res.status(400).send("User not logged in");
+  }
+  console.log("User ID from session:", userId);
+  res.sendFile("dataupload.html")
+});
+
+
+// app.get("/index", async (req, res) => {
+//   try {
+//     console.log(req.session.userId);
+    
+//     // Retrieve all items, and populate the postedby field if you want user info
+//     const items = await Item.find().populate("postedby", "username");
+//     // console.log(items);
+//     // Render the index view and pass the items data
+//     res.render("index", { items });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Error retrieving items");
+//   }
+// });
+
+app.get("/index", async (req, res) => {
+  console.log("In /index, session:", req.session);
+  try {
+    const items = await Item.find().populate("postedby", "username");
+    res.render("index", { items });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error retrieving items");
+  }
+});
+
+app.post("/upload-item", uploadItemImage.single("image"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file uploaded.");
+  }
+
+  // Dummy data for testing, you can take additional fields from req.body
+  const { name, description, price, category} = req.body;
+  const userId = req.session.userId; // Get the user ID from session
+  console.log(userId);
+
+  // Create a new Item document
+  const newItem = new Item({
+    item_name: name, // You can use dummy data or get from form
+    item_desc: description , // Optional description
+    item_price: price , // Default price for testing
+    item_category: category , // Default category
+    item_photo: req.file.path, // Store the path of the uploaded image
+    postedby: userId , // The user who posted the item (you can get this from the session or frontend)
+  });
+
+  try {
+    // Save the new item to the database
+    await newItem.save();
+
+    // Send success response
+    res.status(200).send("Item uploaded and saved to the database successfully!");
+  } catch (error) {
+    console.error("Error saving item:", error);
+    res.status(500).send("Error saving item to the database.");
+  }
+});
+
+
+
+
+
+
 
 
 
