@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Sign-Up and Login</title>
+	<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="stylel.css" />
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div class="takeemail hidden">
+		<form class="takeemail-content" action="/forgpass" method="POST" enctype="multipart/form-data">
+			<div class="takeemail-header">
+				<h2 class="takeemail-header-head">Enter your email</h2>
+			</div>
+			<div class="takeemail-body">
+				<input type="email" name="forgemail" id="forgemail" placeholder="Enter your email here" required />
+			</div>
+			<button id="takeemail-button" type="submit">Submit</button>
+		</form>
+		<button id="closeemailbox">X</button>
+	</div>
+	<!-- <div class="newpass hidden">
+		<form class="setpass-content" action="/setnpass" method="POST" enctype="multipart/form-data">
+			<div class="setpass-header">
+				<h2 class="takeemail-header-head">Enter your new Password</h2>
+			</div>
+			<div class="setpass-body">
+				<div class="input-group">
+					<i class="bx bxs-lock-alt"></i>
+					<input type="password" name="newpass" id="newpass" placeholder="Enter your new password here"
+						required />
+					<i class="bx bx-show password-toggle" id="toggle-newpass"></i>
+				</div>
+				<div class="input-group">
+					<i class="bx bxs-lock-alt"></i>
+					<input type="password" name="confnewpass" id="confnewpass"
+						placeholder="Confirm your new password here" required />
+					<i class="bx bx-show password-toggle" id="toggle-confnewpass"></i>
+				</div>
+			</div>
+			<button id="setpass-button" type="submit">Submit</button>
+		</form>
+	</div> -->
+
+
+	<div class="messagebox hidden">
+		<div class="messagebox-content">
+			<div class="messagebox-header">
+				<h2 class="messagebox-header-head"></h2>
+			</div>
+			<div class="messagebox-body">
+				<p id="messagebox-text"></p>
+			</div>
+			<button id="close-button">Okay</button>
+		</div>
+	</div>
+
+	<!-- Try logging in with username as xyz and password as hack12345 and email for it is something2@gmail.com -->
+	<!-- or
+	 surya_24_11
+	 trysurya24
+	 something3@gmailcom
+	  -->
+
+	<div id="container" class="container">
+		<div class="row">
+			<div class="col align-items-center flex-col sign-up">
+				<div class="form-wrapper align-items-center">
+					<form id="signupform" class="form sign-up" action="/clicksignup" method="POST"
+						enctype="multipart/form-data">
+						<div class="input-group">
+							<i class="bx bxs-user"></i>
+							<input type="text" id="usernamesignup" name="usernamesignup" placeholder="Username"
+								required />
+						</div>
+						<div class="input-group">
+							<i class="bx bx-mail-send"></i>
+							<input type="email" id="email" name="email" placeholder="Email" required />
+						</div>
+						<div class="input-group">
+							<i class="bx bxs-lock-alt"></i>
+							<input type="password" id="passwordsignup" name="passwordsignup" placeholder="Password"
+								required />
+							<i class="bx bx-show password-toggle" id="toggle-passwordsignup"></i>
+						</div>
+						<div class="input-group">
+							<i class="bx bxs-lock-alt"></i>
+							<input type="password" id="confpass" name="confpass" placeholder="Confirm password"
+								required />
+							<i class="bx bx-show password-toggle" id="toggle-confpass"></i>
+						</div>
+						<button id="signup" type="submit">Sign up</button>
+						<p>
+							<span> Already have an account? </span>
+							<b onclick="toggle()" class="pointer co-bl"> Sign in here </b>
+						</p>
+					</form>
+				</div>
+			</div>
+			<div class="col align-items-center flex-col sign-in">
+				<div class="form-wrapper align-items-center">
+					<form id="signinform" class="form sign-in" action="/clicksignin" method="POST"
+						enctype="multipart/form-data">
+						<div class="input-group">
+							<i class="bx bxs-user"></i>
+							<input type="text" id="username" name="username" placeholder="Username" required />
+						</div>
+						<div class="input-group">
+							<i class="bx bxs-lock-alt"></i>
+							<input type="password" id="password" name="password" placeholder="Password" required />
+							<i class="bx bx-show password-toggle" id="toggle-password"></i>
+						</div>
+						<button id="signin" type="submit">Sign in</button>
+						<p>
+							<b id="forg-pass" style="cursor: pointer;">Forgot password?</b>
+						</p>
+						<p>
+							<span> Don't have an account? </span>
+							<b onclick="toggle()" class="pointer co-bl"> Sign up here </b>
+						</p>
+					</form>
+				</div>
+				<div class="form-wrapper"></div>
+			</div>
+		</div>
+
+		<div class="row content-row">
+			<div class="col align-items-center flex-col">
+				<div class="text sign-in">
+					<h2>Welcome</h2>
+				</div>
+				<div class="img sign-in"></div>
+			</div>
+			<!-- END SIGN IN CONTENT -->
+			<!-- SIGN UP CONTENT -->
+			<div class="col align-items-center flex-col">
+				<div class="img sign-up"></div>
+				<div class="text sign-up">
+					<h2>Join with us</h2>
+				</div>
+			</div>
+			<!-- END SIGN UP CONTENT -->
+		</div>
+		<!-- END CONTENT SECTION -->
+	</div>
+
+	<script src="scriptl.js"></script>
+	<script src="scriptfg.js"></script>
+	<!-- <script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const newPasswordField = document.getElementById('newpass');
+			const confirmPasswordField = document.getElementById('confnewpass');
+			const toggleNewPass = document.getElementById('toggle-newpass');
+			const toggleConfNewPass = document.getElementById('toggle-confnewpass');
+
+			// Function to toggle the password visibility
+			const togglePasswordVisibility = (inputField, toggleIcon) => {
+				if (inputField.type === "password") {
+					inputField.type = "text";
+					toggleIcon.classList.remove('bx-show');
+					toggleIcon.classList.add('bx-hide');
+				} else {
+					inputField.type = "password";
+					toggleIcon.classList.remove('bx-hide');
+					toggleIcon.classList.add('bx-show');
+				}
+			};
+
+			// Add event listeners to toggle the password visibility
+			toggleNewPass.addEventListener('click', function () {
+				togglePasswordVisibility(newPasswordField, toggleNewPass);
+			});
+
+			toggleConfNewPass.addEventListener('click', function () {
+				togglePasswordVisibility(confirmPasswordField, toggleConfNewPass);
+			});
+		});
+	</script> -->
+</body>
+
+</html>
