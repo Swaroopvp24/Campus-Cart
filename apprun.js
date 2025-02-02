@@ -15,14 +15,6 @@ import path from 'path';
 
 import session from 'express-session';
 
-
-// import { setnewpass } from './setnewp.js';
-
-
-// Generate a random 256-bit secret key
-// const secretKey = crypto.randomBytes(32).toString('hex');
-// console.log(secretKey); 
-
 const app = express();
 const port = 3000;
 const upload = multer();
@@ -117,35 +109,20 @@ const fileFilter = (req, file, cb) => {
 const uploadItemImage = multer({ storage, fileFilter });
 
 
-
-
-
-// app.post("/sellitem", upload.none(), async (req, res) => {
-  
-//   // console.log(req.body);
-//   // console.log(req.session)
-  
-//   console.log(req.session.userId);
-//   try {
-//     const userId = req.session.userId; // Get user ID from session
-//     console.log(userId);
-
-//     if (!userId) {
-//       return res.status(400).send("User not logged in");
-//     }
-
-//     // Continue with processing the sell item request
-//     res.json({ success: true, redirectUrl: "/dataupload.html" }); // Send a redirect URL
-//   }catch(e){return res.status(500).send(e);}
-// });
 app.post("/sellitem", async (req, res) => {
-  console.log("In /sellitem, session:", req.session);
+  // console.log("In /sellitem, session:", req.session);
   const userId = req.session.userId; // Get user ID from session
   if (!userId) {
     return res.status(400).send("User not logged in");
   }
   console.log("User ID from session:", userId);
   res.json({ success: true, redirectUrl: "/dataupload.html" });
+});
+
+app.get("/profile", async (req, res) => {
+  // Assuming you have a session with userId and a User model
+  const user = await Usr.findById(req.session.userId);
+  res.render("profile", { user });
 });
 
 app.get("/dataupload.html",async(req,res)=>{
@@ -159,20 +136,7 @@ app.get("/dataupload.html",async(req,res)=>{
 });
 
 
-// app.get("/index", async (req, res) => {
-//   try {
-//     console.log(req.session.userId);
-    
-//     // Retrieve all items, and populate the postedby field if you want user info
-//     const items = await Item.find().populate("postedby", "username");
-//     // console.log(items);
-//     // Render the index view and pass the items data
-//     res.render("index", { items });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Error retrieving items");
-//   }
-// });
+
 
 app.get("/index", async (req, res) => {
   console.log("In /index, session:", req.session);
@@ -184,6 +148,9 @@ app.get("/index", async (req, res) => {
     res.status(500).send("Error retrieving items");
   }
 });
+
+
+
 
 app.post("/upload-item", uploadItemImage.single("image"), async (req, res) => {
   if (!req.file) {
@@ -216,12 +183,6 @@ app.post("/upload-item", uploadItemImage.single("image"), async (req, res) => {
     res.status(500).send("Error saving item to the database.");
   }
 });
-
-
-
-
-
-
 
 
 
@@ -297,6 +258,7 @@ app.post("/request-reset-password", upload.none(), async (req, res) => {
     res.send("Password reset email sent successfully.");
   });
 });
+
 
 
 

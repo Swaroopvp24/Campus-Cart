@@ -14,6 +14,8 @@
       background: linear-gradient(135deg, #f8fafc, #e2e8f0);
     }
 
+
+
     /* Custom styles to make dropdown above content */
     #navbarMenu {
       z-index: 9999;
@@ -80,6 +82,22 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border-bottom: 1px solid #e2e8f0;
     }
+
+    #productDetail {
+      width: 80%;
+      height: 80%;
+      inset: 0;
+      margin: auto;
+      position: fixed;
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      /* background-color: rgb(111, 237, 100);  */
+    }
+
+    #sectioninsection {
+      position: absolute;
+      top: 33px;
+      left: 106px;
+    }
   </style>
 </head>
 
@@ -129,7 +147,7 @@
         </button>
 
         <!-- Profile Icon -->
-        <button
+        <button id="profile-button"
           class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base">
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             class="w-4 h-4 ml-1" viewBox="0 0 24 24">
@@ -143,11 +161,11 @@
 
     <!-- Collapsible Menu (Mobile) -->
     <div id="navbarMenu" class="lg:hidden hidden flex-col items-center w-full mt-4 bg-white border-t border-gray-200">
-      <button id="sellbutton" action="/sellitem"
+      <button id="selldownbutton" action="/sellitem"
         class="w-full text-center bg-gray-100 border-0 py-2 px-4 focus:outline-none hover:bg-gray-200 rounded text-base">
         Sell
       </button>
-      <button
+      <button id="profiledown-button"
         class="w-full text-center bg-gray-100 border-0 py-2 px-4 focus:outline-none hover:bg-gray-200 rounded text-base">
         Profile
       </button>
@@ -158,34 +176,61 @@
       </button>
     </div>
   </header>
+  <section id="productDetail" class="text-gray-600 body-font overflow-hidden hidden">
+    <div class="container px-5 py-24 mx-auto">
+      <div id="sectioninsection" class="lg:w-4/5 mx-auto flex flex-wrap">
+        <button id="closeDetail"
+          class="absolute top-2 right-2 text-gray-600 hover:text-gray-900 hover:bg-gray-500">Close</button>
+        <img id="detailPhoto" alt="ecommerce" class="lg:w-1/2 lg:h-auto h-64 object-cover object-center rounded w-[40%]"
+          style="width: 40%;" src="">
+        <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+          <h1 id="detailName" class="text-gray-900 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
+          <h2 id="detailCategory" class="text-sm title-font text-gray-500 tracking-widest"></h2>
+          <p id="detailDesc" class="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric
+            sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn.
+            Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean
+            shorts keytar banjo tattooed umami cardigan.</p>
+          <p id="detailPostedBy" class="text-sm text-gray-800"></p>
+          <div class="flex">
+            <span id="detailPrice" class="title-font font-medium text-2xl text-gray-900">(price)</span>
+            <button
+              class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Contact</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="text-gray-600 body-font">
     <div class="container mx-auto mt-10">
       <h1 class="text-3xl font-bold text-center">Campus Cart</h1>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-[2.5rem]" style="margin-top: 8rem;">
-        <% items.forEach(item=> { %>
-          <div class="bg-white p-4 rounded-lg shadow-md" style="cursor: pointer;">
+
+        <% items.slice().reverse().forEach(item=> { %>
+          <div class="item-card bg-white p-4 rounded-lg shadow-md cursor-pointer" data-name="<%= item.item_name %>"
+            data-desc="<%= item.item_desc %>" data-price="<%= item.item_price %>"
+            data-category="<%= item.item_category %>" data-photo="/uploads/<%= item.item_photo.split('\\').pop() %>"
+            data-username="<%= item.postedby ? item.postedby.username : 'Unknown' %>">
             <a href="#">
-              <%= console.log(item.item_photo) %>
-                <!-- <%= JSON.stringify(item) %> -->
-                <img src="/uploads/<%= item.item_photo.split('\\').pop() %>" alt="<%= item.item_name %>"
-                  class="w-full h-40 object-cover rounded-md">
-                <h2 class="text-xl font-semibold mt-2">
-                  <%= item.item_name %>
-                </h2>
-                <p class="text-gray-700">
-                  <%= item.item_desc %>
-                </p>
-                <p class="text-green-600 font-bold">₹<%= item.item_price %>
-                </p>
-                <p class="text-gray-500">Category: <%= item.item_category %>
-                </p>
-                <p class="text-sm text-gray-400">Posted by: <%= item.postedby ? item.postedby.username : "Unknown" %>
-                </p>
+              <img src="/uploads/<%= item.item_photo.split('\\').pop() %>" alt="<%= item.item_name %>"
+                class="w-full h-40 rounded-md object-contain">
+              <h2 class="text-xl font-semibold mt-2">
+                <%= item.item_name %>
+              </h2>
+              <p class="text-gray-700">
+                <%= item.item_desc %>
+              </p>
+              <p class="text-green-600 font-bold">₹<%= item.item_price %>
+              </p>
+              <p class="text-gray-500">Category: <%= item.item_category %>
+              </p>
+              <p class="text-sm text-gray-400">Posted by: <%= item.postedby ? item.postedby.username : "Unknown" %>
+              </p>
             </a>
           </div>
-          <% }) %>
+        <% }); %>
+        
       </div>
     </div>
 
@@ -193,9 +238,72 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get all item cards and the detail section elements
+      const itemCards = document.querySelectorAll(".item-card");
+      const productDetailSection = document.getElementById("productDetail");
+      const detailName = document.getElementById("detailName");
+      const detailDesc = document.getElementById("detailDesc");
+      const detailPrice = document.getElementById("detailPrice");
+      const detailCategory = document.getElementById("detailCategory");
+      const detailPhoto = document.getElementById("detailPhoto");
+      const detailPostedBy = document.getElementById("detailPostedBy");
+      const closeDetailButton = document.getElementById("closeDetail");
+
+      // Loop through each item card and add a click event listener
+      itemCards.forEach(card => {
+        card.addEventListener("click", function (event) {
+          event.preventDefault();
+          // Read data attributes from the clicked card
+          const name = card.getAttribute("data-name");
+          const desc = card.getAttribute("data-desc");
+          const price = card.getAttribute("data-price");
+          const category = card.getAttribute("data-category");
+          const photo = card.getAttribute("data-photo");
+          const username = card.getAttribute("data-username");
+
+          // Update the detail section with these values
+          detailName.textContent = name;
+          detailDesc.textContent = desc;
+          detailPrice.textContent = "₹" + price;
+          detailCategory.textContent = category;
+          detailPhoto.src = photo;
+          detailPostedBy.textContent = "Posted by: " + username;
+
+          // Reveal the detail section (remove hidden class)
+          productDetailSection.classList.remove("hidden");
+        });
+      });
+
+      // Add a click event listener to the close button to hide the detail section
+      closeDetailButton.addEventListener("click", function () {
+        productDetailSection.classList.add("hidden");
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const profileButton = document.getElementById("profile-button");
+      profileButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        // Optionally perform additional logic here
+        window.location.href = "/profile";
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      const profileButton = document.getElementById("profiledown-button");
+      profileButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        // Optionally perform additional logic here
+        window.location.href = "/profile";
+      });
+    });
+  </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+
+
       // Toggle the menu on mobile
       const hamburgerMenu = document.getElementById('hamburger-menu');
       const navbarMenu = document.getElementById('navbarMenu');
@@ -228,7 +336,36 @@
               if (!response.ok) {
                 throw new Error("Server error");
               }
-              return response.json(); // Or response.json() if the response is JSON
+              return response.json();
+            })
+            .then((data) => {
+              // console.log(data); // Handle the response from the server
+              window.location.href = data.redirectUrl;
+            })
+            .catch((error) => {
+              console.error("Error:", error); // Log errors
+            });
+        };
+
+        sendreq(); // Call the function to send the request
+      });
+
+      document.querySelector("#selldownbutton").addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default behavior if in a form
+
+        const sendreq = async () => {
+          await fetch("/sellitem", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json", // Ensure correct content type for JSON
+            },
+            body: JSON.stringify({ /* Add any data you need to send */ })
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Server error");
+              }
+              return response.json();
             })
             .then((data) => {
               // console.log(data); // Handle the response from the server
@@ -243,6 +380,39 @@
       });
     });
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("default-search");
+      const searchButton = searchInput.nextElementSibling; // assuming the search button is the next sibling
+      const itemCards = document.querySelectorAll(".item-card");
+  
+      // Function to filter cards based on search term
+      function filterItems() {
+        const searchTerm = searchInput.value.toLowerCase();
+        itemCards.forEach(card => {
+          // You can search within the item's name, description, or any data attribute
+          const name = card.getAttribute("data-name").toLowerCase();
+          const desc = card.getAttribute("data-desc").toLowerCase();
+          // Check if the search term exists in the name or description
+          if (name.includes(searchTerm) || desc.includes(searchTerm)) {
+            card.style.display = "block"; // or use an empty string if you have CSS handling layout
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
+  
+      // Trigger filtering when typing in the search box
+      searchInput.addEventListener("input", filterItems);
+  
+      // Or, if you prefer to filter when the search button is clicked:
+      searchButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        filterItems();
+      });
+    });
+  </script>
+    
 </body>
 
 </html>
