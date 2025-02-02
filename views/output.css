@@ -584,14 +584,8 @@
   .end-2 {
     inset-inline-end: calc(var(--spacing) * 2);
   }
-  .top-0 {
-    top: calc(var(--spacing) * 0);
-  }
   .top-2 {
     top: calc(var(--spacing) * 2);
-  }
-  .right-0 {
-    right: calc(var(--spacing) * 0);
   }
   .right-2 {
     right: calc(var(--spacing) * 2);
@@ -746,29 +740,17 @@
   .mt-\[2\.5rem\] {
     margin-top: 2.5rem;
   }
-  .mr-3 {
-    margin-right: calc(var(--spacing) * 3);
-  }
   .mb-1 {
     margin-bottom: calc(var(--spacing) * 1);
   }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
-  .mb-5 {
-    margin-bottom: calc(var(--spacing) * 5);
-  }
   .ml-1 {
     margin-left: calc(var(--spacing) * 1);
   }
   .ml-3 {
     margin-left: calc(var(--spacing) * 3);
-  }
-  .ml-4 {
-    margin-left: calc(var(--spacing) * 4);
-  }
-  .ml-6 {
-    margin-left: calc(var(--spacing) * 6);
   }
   .ml-auto {
     margin-left: auto;
@@ -872,9 +854,6 @@
   .h-4 {
     height: calc(var(--spacing) * 4);
   }
-  .h-5 {
-    height: calc(var(--spacing) * 5);
-  }
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
@@ -896,9 +875,6 @@
   .h-64 {
     height: calc(var(--spacing) * 64);
   }
-  .h-full {
-    height: 100%;
-  }
   .h-screen {
     height: 100vh;
   }
@@ -916,9 +892,6 @@
   }
   .w-4 {
     width: calc(var(--spacing) * 4);
-  }
-  .w-5 {
-    width: calc(var(--spacing) * 5);
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
@@ -1521,10 +1494,6 @@
     border-style: var(--tw-border-style);
     border-width: 0px;
   }
-  .border-2 {
-    border-style: var(--tw-border-style);
-    border-width: 2px;
-  }
   .border-x {
     border-inline-style: var(--tw-border-style);
     border-inline-width: 1px;
@@ -1553,17 +1522,9 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
   }
-  .border-b-2 {
-    border-bottom-style: var(--tw-border-style);
-    border-bottom-width: 2px;
-  }
   .border-l {
     border-left-style: var(--tw-border-style);
     border-left-width: 1px;
-  }
-  .border-l-2 {
-    border-left-style: var(--tw-border-style);
-    border-left-width: 2px;
   }
   .border-dashed {
     --tw-border-style: dashed;
@@ -1588,9 +1549,6 @@
   .border-solid {
     --tw-border-style: solid;
     border-style: solid;
-  }
-  .border-gray-100 {
-    border-color: var(--color-gray-100);
   }
   .border-gray-200 {
     border-color: var(--color-gray-200);
@@ -1621,12 +1579,6 @@
   }
   .bg-gray-100 {
     background-color: var(--color-gray-100);
-  }
-  .bg-gray-200 {
-    background-color: var(--color-gray-200);
-  }
-  .bg-gray-700 {
-    background-color: var(--color-gray-700);
   }
   .bg-indigo-500 {
     background-color: var(--color-indigo-500);
@@ -1809,9 +1761,6 @@
   .object-top {
     object-position: top;
   }
-  .p-0 {
-    padding: calc(var(--spacing) * 0);
-  }
   .p-2 {
     padding: calc(var(--spacing) * 2);
   }
@@ -1841,15 +1790,6 @@
   }
   .py-24 {
     padding-block: calc(var(--spacing) * 24);
-  }
-  .pr-10 {
-    padding-right: calc(var(--spacing) * 10);
-  }
-  .pb-5 {
-    padding-bottom: calc(var(--spacing) * 5);
-  }
-  .pl-3 {
-    padding-left: calc(var(--spacing) * 3);
   }
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
@@ -2037,9 +1977,6 @@
   }
   .text-green-600 {
     color: var(--color-green-600);
-  }
-  .text-indigo-500 {
-    color: var(--color-indigo-500);
   }
   .text-white {
     color: var(--color-white);
@@ -2543,17 +2480,6 @@
       border-color: var(--color-blue-500);
     }
   }
-  .focus\:border-indigo-500 {
-    &:focus {
-      border-color: var(--color-indigo-500);
-    }
-  }
-  .focus\:ring-2 {
-    &:focus {
-      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentColor);
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    }
-  }
   .focus\:ring-4 {
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentColor);
@@ -2568,11 +2494,6 @@
   .focus\:ring-blue-500 {
     &:focus {
       --tw-ring-color: var(--color-blue-500);
-    }
-  }
-  .focus\:ring-indigo-200 {
-    &:focus {
-      --tw-ring-color: var(--color-indigo-200);
     }
   }
   .focus\:outline-none {
