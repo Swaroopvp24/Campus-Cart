@@ -62,7 +62,9 @@ The solution is built using a Node.js backend with Express.js and MongoDB (using
 3. **Set Up Environment Variables:**
 
 -MONGODB_URI=mongodb://localhost:27017/CampusCart
+
 SESSION_SECRET=your_very_secure_secret
+
 PORT=3000
 
 4. **Run Tailwind CSS and Server Concurrently (Optional):**
