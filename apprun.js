@@ -177,7 +177,73 @@ app.post("/upload-item", uploadItemImage.single("image"), async (req, res) => {
     await newItem.save();
 
     // Send success response
-    res.status(200).send("Item uploaded and saved to the database successfully!");
+    res.status(200).send(`
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #57B894;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #57B894;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid #57B894;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #57B894;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Password Reset Successful</h1>
+        <p>Your password has been reset successfully.</p>
+        <p>Click <a href="http://127.0.0.1:3000/login_signup.html">here</a> to log in.</p>
+    </div>
+</body>
+
+</html>
+`);
   } catch (error) {
     console.error("Error saving item:", error);
     res.status(500).send("Error saving item to the database.");
