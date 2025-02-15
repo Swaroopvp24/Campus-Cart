@@ -236,9 +236,9 @@ app.post("/upload-item", uploadItemImage.single("image"), async (req, res) => {
 
 <body>
     <div class="container">
-        <h1>Password Reset Successful</h1>
-        <p>Your password has been reset successfully.</p>
-        <p>Click <a href="http://127.0.0.1:3000/login_signup.html">here</a> to log in.</p>
+        <h1>Upload item Successful</h1>
+        <p>Your item has been uploaded successfully.</p>
+        <p>Click <a href="http://127.0.0.1:3000/index">here</a> to go back to index</p>
     </div>
 </body>
 
